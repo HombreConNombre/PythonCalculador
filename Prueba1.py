@@ -76,13 +76,26 @@ def calcularPerimetro():
             
     return None
 
+#Función para calcular la hipotenusa
 def calcularHipotenusa():
-    base=input("Introduce la base del triángulo: ")
-    altura=input("Introduce la altura del triángulo: ")
-    baseCuadrado=float(math.pow(float(base),2))
-    alturaCuadrado=float(math.pow(float(altura),2)
-    print("La HIPOTENUSA es: "+str(altura))
-    
+    base=float(input("Introduce la base del triángulo: "))
+    altura=float(input("Introduce la altura del triángulo: "))
+    bCuadrado=math.pow(base,2)
+    aCuadrado=math.pow(altura,2)
+    hipotenusa=math.sqrt(bCuadrado+aCuadrado)
+    print("La HIPOTENUSA es: "+str(hipotenusa))
+
+    return None
+
+#Función para calcular puntos medios en el plano Cartesiano
+def CalcularPuntoMedio():
+    X1=float(input("Introduce la coordenada del eje X del primer punto: "))
+    Y1=float(input("Introduce la coordenada del eje Y del primer punto: "))
+    X2=float(input("Introduce la coordenada del eje X del segundo punto: "))
+    Y2=float(input("Introduce la coordenada del eje Y del segundo punto: "))
+    P1=[X1,Y1]
+    P2=[X2,Y2]
+
     return None
 
 print("Menu inicial: ")
