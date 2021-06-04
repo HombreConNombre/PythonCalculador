@@ -1,12 +1,17 @@
 import math
 
+class FigurasGeometricas:
+
+    def __init__(self, nLados):
+        self.nLados=nLados
+
 class Triangulo(FigurasGeometricas):
 
-    def _init_(self,nLados,base,altura):
-        FigurasGeometricas._init_(self, nLados)
+    def __init__(self,nLados,base,altura):
+        FigurasGeometricas(nLados)
         self.base=base
         self.altura=altura
-        self.hipotenusa=calcularHipotenusa(self)
+        self.hipotenusa=self.calcularHipotenusa()
 
     def calcularArea(self):
         area=self.base*self.altura/2
@@ -21,3 +26,12 @@ class Triangulo(FigurasGeometricas):
         aCuadrado=math.pow(self.altura,2)
         hipotenusa=math.sqrt(bCuadrado+aCuadrado)
         return hipotenusa
+
+class Rectangulo(FigurasGeometricas):
+
+    def _init_(self, base, altura):
+        self.base=base
+        self.altura=altura
+
+    
+   
