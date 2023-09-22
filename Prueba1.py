@@ -1,42 +1,76 @@
 import funcionesCalculadora
-import math
-import objGeometric
+from objGeometric import *
 
-figura = 0
+figura = Triangulo()
 
-opcion=1
-while opcion>0 and opcion<6 :
-    nLados=int(input("Antes de empezar necesito que me digas cuántos lados tiene la figura geométrica: "))
-    if nLados==3:
-        base=float(input("Introduce la base: "))
-        altura=float(input("Introduce ahora la altura: "))
-        #Colocar en el futuro una opción de si está correcto los datos.
-        figura = objGeometric.Triangulo(nLados,base,altura)
-        print(figura)
+
+def introduccion():
+    regular_irregular = input("Por favor, dime si la figura geométrica es regular, irregular o circular: ")
+    
+    if regular_irregular.upper() == "REGULAR":
+        consulta_regular()
+            
+    elif regular_irregular.upper() == "CIRCULAR":
+        consulta_circunferencia()
+    
+    elif regular_irregular.upper() == "IRREGULAR":
+        consulta_irregular()    
+
+def consulta_regular():
+    global figura
+    
+    n_lados = int(input("¿Cuántos lados tiene esa figura?"))
+    if n_lados == 3:
+        altura = float(input( "Inserta la altura del triángulo: "))
+        base = float(input( "Introduce la longitud de la base: ")) 
+        figura = Triangulo( base, altura)  
+    
+    else:
+        long_lados = float(input( "Inserte la longitud de los lados: "))
+        apotema = float(input( "Introdúceme la apotema: "))
+        figura = FigurasGeometricas_regulares( n_lados, long_lados, apotema)
         
-    elif nLados==4:
-         base=float(input("Introduce la base: "))
-        altura=float(input("Introduce ahora la altura: "))
-        #Colocar en el futuro una opción de si está correcto los datos.
-        figura = objGeometric.Rectangulos(nLados,base,altura)
+def consulta_circunferencia():
+    global figura
+    radio = float(input( "Introduce el radio del círculo: "))
+    figura = circunferencia( radio)
+    
+def consulta_irregular():
+    global figura
+    n_lados = int(input( "¿Cuántos lados tiene tu polinomio?: "))
+    pos_cards = []
+    
+    for _ in range(n_lados):
+        x = float( input( " Introduce la coordenada X: "))
+        y = float( input( "Introduce la coodernada Y: "))
         
+        pos_cards.append([ x, y])
+        print(pos_cards)
+        
+    figura = FigurasGeometricas_irregulares(pos_cards)
+        
+
+opcion = 1
+introduccion()
+while int(opcion) > 0 and int(opcion) < 6 :
     print("Menu inicial: ")
     print("1 - Calcular Area")
     print("2 - Calcular Perímetro")
     print("3 - Calcular Hipotenusa")
     print("4 - Calcular punto Intermedio")
-    print("5 - Calcular ")
+    print("5 - Coger otra figura")
     print("Pulsa cualquier otro número para salir.")
-    opcion=int(input())
+    opcion = input()
     #Comienza la elección
-    if opcion == 1:
-        funcionesCalculadora.calcularArea(figura)
-    elif opcion == 2:
-        funcionesCalculadora.calcularPerimetro(figura)
-    elif opcion == 3:
-        break
-    elif opcion == 4:
+    if opcion == '1':
+        print( "El area es: "+ str(figura.calcularArea()))
+    elif opcion == '2':
+        print( "El perímetro es: "+ str(figura.calcularPerimetro()))
+    elif opcion == '3':
+        print( "El hipotenusa es: "+ str(figura.calcularHipotenusa()))
+    elif opcion == '4':
         funcionesCalculadora.CalcularPuntoMedio()
-    elif opcion == 5:
-        #No sé qué hacer aún. Admito ideas.
-        print("Elegido X")
+    elif opcion == '5':
+        # No sé qué hacer aún. Admito ideas.
+        introduccion()
+
