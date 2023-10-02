@@ -13,3 +13,4 @@ def CalcularPuntoMedio():
     
     print("El punto medio es X: "+str(Pm[0])+" Y: "+str(Pm[1]))
     return None
+

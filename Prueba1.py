@@ -1,6 +1,6 @@
-import funcionesCalculadora
-from geometrRegular import *
-from geometrIrregular import *
+from utils.funcionesCalculadora import *
+from utils.geometrRegular import *
+from utils.geometrIrregular import *
 
 figura = Triangulo()
 
@@ -55,28 +55,27 @@ def consulta_irregular():
         
     figura = FigurasGeometricas_irregulares(pos_cards)
         
-
-opcion = 1
-introduccion()
-while int(opcion) > 0 and int(opcion) < 6 :
-    print("""Menu inicial: 
-          1 - Calcular Area
-          2 - Calcular Perímetro
-          3 - Calcular Hipotenusa
-          4 - Calcular punto Intermedio
-          5 - Coger otra figura
-          Pulsa cualquier otro número para salir.""")
-    opcion = input()
-    #Comienza la elección
-    if opcion == '1':
-        print( "El area es: "+ str(figura.calcularArea()))
-    elif opcion == '2':
-        print( "El perímetro es: "+ str(figura.calcularPerimetro()))
-    elif opcion == '3':
-        print( "El hipotenusa es: "+ str(figura.calcularHipotenusa()))
-    elif opcion == '4':
-        funcionesCalculadora.CalcularPuntoMedio()
-    elif opcion == '5':
-        # No sé qué hacer aún. Admito ideas.
-        introduccion()
-
+if __name__ == '__main__':
+    opcion = 1
+    introduccion()
+    while int(opcion) > 0 and int(opcion) < 6 :
+        print("""Menu inicial: 
+            1 - Calcular Area
+            2 - Calcular Perímetro
+            3 - Calcular Hipotenusa
+            4 - Calcular punto Intermedio
+            5 - Coger otra figura
+            Pulsa cualquier otro número para salir.""")
+        opcion = input()
+        #Comienza la elección
+        match opcion:
+            case '1':
+                print( "El area es: "+ str(figura.calcularArea()))
+            case '2':
+                print( "El perímetro es: "+ str(figura.calcularPerimetro()))
+            case '3':
+                print( "El hipotenusa es: "+ str(figura.calcularHipotenusa()))
+            case '4':
+                CalcularPuntoMedio()
+            case '5':
+                introduccion()    
