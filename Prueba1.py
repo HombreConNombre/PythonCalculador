@@ -1,5 +1,6 @@
 import funcionesCalculadora
-from objGeometric import *
+from geometrRegular import *
+from geometrIrregular import *
 
 figura = Triangulo()
 
@@ -24,6 +25,11 @@ def consulta_regular():
         altura = float(input( "Inserta la altura del triángulo: "))
         base = float(input( "Introduce la longitud de la base: ")) 
         figura = Triangulo( base, altura)  
+    
+    elif n_lados == 4:
+        long_lados = float(input( "Inserte la longitud de los lados: "))
+        altura = float(input( "Introdúceme la altura: "))
+        figura = Rectangulo( n_lados, long_lados, altura)
     
     else:
         long_lados = float(input( "Inserte la longitud de los lados: "))
@@ -53,13 +59,13 @@ def consulta_irregular():
 opcion = 1
 introduccion()
 while int(opcion) > 0 and int(opcion) < 6 :
-    print("Menu inicial: ")
-    print("1 - Calcular Area")
-    print("2 - Calcular Perímetro")
-    print("3 - Calcular Hipotenusa")
-    print("4 - Calcular punto Intermedio")
-    print("5 - Coger otra figura")
-    print("Pulsa cualquier otro número para salir.")
+    print("""Menu inicial: 
+          1 - Calcular Area
+          2 - Calcular Perímetro
+          3 - Calcular Hipotenusa
+          4 - Calcular punto Intermedio
+          5 - Coger otra figura
+          Pulsa cualquier otro número para salir.""")
     opcion = input()
     #Comienza la elección
     if opcion == '1':

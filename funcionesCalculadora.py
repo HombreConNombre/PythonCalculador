@@ -1,6 +1,3 @@
-import math
-import objGeometric
-
 #Función para calcular puntos medios en el plano Cartesiano (Futuro: Cambiar los Arrays por Objetos)
 def CalcularPuntoMedio():
     X1=float(input("Introduce la coordenada del eje X del primer punto: "))
