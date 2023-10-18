@@ -93,6 +93,7 @@ class Root(tk.Tk):
                               ).place( relx = .6, rely = .1)
     # CLEAN BLOCK
     def clean_frame( self):
+        print(len(self.winfo_children()))
         for widget in self.winfo_children():
             print( widget.winfo_id)
             if not ('geometria' in str(widget) or 'calculadora' in str(widget)):

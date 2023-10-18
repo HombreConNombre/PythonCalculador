@@ -40,10 +40,16 @@ class FigurasGeometricas_regulares(polinomios):
 class Rectangulo( polinomios):
     """ Rectangule figures
     """
+    # Rectangle
     def __init__( self, long_lados: float, altura: float):
         self.__n_lados = 4
         self.__long_lados = long_lados
         self.__altura = altura
+    # Square
+    def __init__( self, long_lados: float):
+        self.__n_lados = 4
+        self.__long_lados = long_lados
+        self.__altura = long_lados
     
     # GET and SET BLOCK
     def get_n_lados( self) -> int:

@@ -1,5 +1,7 @@
 import tkinter as tk
+import time
 from utils.geometrIrregular import FigurasGeometricas_irregulares
+from utils.geometrRegular import *
 
 minpady = 10
 minpadx = 10
@@ -25,16 +27,94 @@ class Root(tk.Tk):
         
     def center_geometry( self) -> None:
         self.clean_frame()
-        tk.Label( self, text = "Inserta las coordenadas: "
-                               ).place( relx = .12, rely = .1)
+        tk.Button( self, text = "Crear un rectángulo/cuadrado",
+                  command = lambda: self.create_rectangle()
+                  ).place( relx = .12, rely = .1)
+        tk.Button( self, text = "Crear un triángulo",
+                  command = lambda: self.create_triangle()
+                  ).place( relx = .12, rely = .15)
+        tk.Button( self, text = "Crear un círculo",
+                  command = lambda: self.create_circle()
+                  ).place( relx = .12, rely = .2)
+        tk.Button( self, text = "Crear un círculo",
+                  command = lambda: self.create_irregular()
+                  ).place( relx = .12, rely = .25)        
+        
+    def create_triangle( self) -> None:
+        """ we are going to create all necesary widgets to calculate
+            triangle area and perimeter.
+        """
+        self.clean_frame()
+        time.sleep(10)
+        tk.Label( self, text = "Si te falta algún dato, no hay problema. "
+                    ).place( relx = self.winfo_width()/2, rely = 0)
+        
+        tk.Label( self, text = "Inserta la base: "
+                    ).place( relx = .1, rely = .15) 
+        self.base = tk.StringVar()
+        self.base.set("3.45")
+        base_entry = tk.Entry( self, 
+                 textvariable = self.base
+                 ).place( relx = .1, rely = .15)
+        
+        tk.Label( self, text = "Inserta la altura: "
+                    ).place( relx = .12, rely = .25)
+        
+        self.height = tk.StringVar()
+        self.height.set("3.45")
+        height_entry = tk.Entry( self, 
+                 textvariable = self.height
+                 ).place( relx = .23, rely = .25)
+        tk.Label( self, text = "La hipotenusa: "
+                    ).place( relx = .12, rely = .25)
+        
+        self.hypotenuse = tk.StringVar()
+        self.hypotenuse.set("3.45")
+        hypotenuse_entry = tk.Entry( self, 
+                 textvariable = self.hypotenuse
+                 ).place( relx = .23, rely = .25)
+        """ bind options:
+            FocusIn, FocusOut, <Button-1>, <KeyPress>... -> some options
+        """
+        base_entry.bind('<FocusIn>', self.entry_clean)
+        height_entry.bind('<FocusIn>', self.entry_clean)
+        hypotenuse_entry.bind('<FocusIn>', self.entry_clean)
+        
+        tk.Button( self, text = "Calcular",
+                  command = lambda: self.calculate_geometr()
+                  ).place( relx = .2, rely = .15)
+        
+    def create_circle( self) -> None:
+        self.clean_frame()
+        tk.Label( self, text = "Inserta el radio: "
+                    ).place( relx = .12, rely = .25)
         
         self.entry_text = tk.StringVar()
-        self.entry_text.set("Ejemplo: X1,Y1;X2;Y2...")
-        
+        self.entry_text.set("1.5")
         coord_entry = tk.Entry( self, 
                  textvariable = self.entry_text
                  )
-        coord_entry.place( relx = .23, rely = .1)
+        coord_entry.place( relx = .23, rely = .25)
+        """ bind options:
+            FocusIn, FocusOut, <Button-1>, <KeyPress>... -> some options
+        """
+        coord_entry.bind('<FocusIn>', self.entry_clean)
+        
+        tk.Button( self, text = "Calcular",
+                  command = lambda: self.calculate_geometr()
+                  ).place( relx = .2, rely = .15)
+        
+    def create_irregular( self) -> None:
+        self.clean_frame()
+        tk.Label( self, text = "Inserta las coordenadas: "
+                    ).place( relx = .12, rely = .25)
+        
+        self.entry_text = tk.StringVar()
+        self.entry_text.set("Ejemplo: X1,Y1;X2;Y2...")
+        coord_entry = tk.Entry( self, 
+                 textvariable = self.entry_text
+                 )
+        coord_entry.place( relx = .23, rely = .25)
         """ bind options:
             FocusIn, FocusOut, <Button-1>, <KeyPress>... -> some options
         """
@@ -42,22 +122,33 @@ class Root(tk.Tk):
         
         tk.Button( self, text = "Crear polinomio",
                   command = lambda: self.calculate_geometr()
-                  ).place( relx = .2, rely = .15)        
+                  ).place( relx = .2, rely = .15)
         
-    def calculate_geometr( self) -> None:
+    def calculate_geometr( self, shape: str, values: list) -> None:
         """ We create the labels and calculate perimeter and the area.
         """
-        irregular_geo = FigurasGeometricas_irregulares( self.split_lst())
-        self.generate_canvas( irregular_geo)
+        geometry = 0
+        match shape:
+            case 'square':
+                geometry = Rectangulo( values[0])
+            case 'rectangle':
+                geometry = Rectangulo( values[0], values[1])
+            case 'triangle':
+                geometry = Triangulo( values[0], values[1])
+            case 'circle':
+                geometry = circunferencia()
+            case 'irregular':
+                geometry = FigurasGeometricas_irregulares( self.split_lst())
         
+        self.generate_canvas( geometry)
         tk.Label( self,
-                    text = f"El perimetro de la figura es: {irregular_geo.calcularPerimetro()}"
+                    text = f"El perimetro de la figura es: {geometry.calcularPerimetro()}"
                 ).place( relx = .2, rely = .2)
         tk.Label( self,
-                    text = f"El area de la figura es: {irregular_geo.calcularArea()}"
+                    text = f"El area de la figura es: {geometry.calcularArea()}"
                 ).place( relx = .2, rely = .25)
         
-    def split_lst( self):
+    def split_lst( self) -> list:
         value_lst = []
         for string_x_y in self.entry_text.get().split(";"):
             x_y = string_x_y.split(',')
@@ -72,7 +163,6 @@ class Root(tk.Tk):
         Args:
             _ (event): We MUST take this variable, but we don't need it.
         """
-        print("Focus on")
         self.entry_text.set("")
     
     def generate_canvas( self, irregular_geo) -> None:
@@ -227,7 +317,6 @@ class Root(tk.Tk):
     # CLEAN BLOCK
     def clean_frame( self):
         for widget in self.winfo_children():
-            print( widget.winfo_id)
             if not ('geometria' in str(widget) or 'calculadora' in str(widget)):
                 widget.destroy()
                 
