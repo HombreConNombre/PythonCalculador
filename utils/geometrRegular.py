@@ -1,4 +1,4 @@
-from intGeometric import polinomios
+from .intGeometric import polinomios
 import math
 
 class FigurasGeometricas_regulares(polinomios):
