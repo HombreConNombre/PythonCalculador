@@ -1,2 +1,5 @@
+# Ignore format
+*.pyc
 # Ignore folder
 venvPythonCalc/
+__pycache__/
